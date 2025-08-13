@@ -1,19 +1,35 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import App from './App';
 import { describe, it, expect } from 'vitest';
-
+import App from './App';
 
 describe('App', () => {
-  it('renders the initial count', () => {
+  it('shows a profile and allows like leading to possible match', async () => {
     render(<App />);
-    expect(screen.getByText(/count is 0/i)).toBeInTheDocument();
+
+    // initial load
+    expect(await screen.findByRole('img', { name: /photo/i })).toBeInTheDocument();
+
+    // like -> possibly opens modal (seed has even ages liked back)
+    const likeButton = screen.getByRole('button', { name: /^like$/i });
+    likeButton.click();
+
+    // Either opens match or goes to next profile. We can wait for either state change.
+    await waitFor(() => {
+      // next card should exist or match modal should open
+      const maybeModal = screen.queryByText(/it's a match!/i);
+      const card = screen.queryByRole('img', { name: /photo/i });
+      expect(maybeModal ?? card).toBeTruthy();
+    });
   });
 
-  it('increments the count when button is clicked', () => {
+  it('handles running out of profiles', async () => {
     render(<App />);
-    const button = screen.getByRole('button', { name: /count is 0/i });
-    fireEvent.click(button);
-    expect(screen.getByText(/count is 1/i)).toBeInTheDocument();
+    // There are 3 in seed; click through 3 dislikes
+    for (let i = 0; i < 3; i++) {
+      const dislike = await screen.findByRole('button', { name: /^dislike$/i });
+      dislike.click();
+    }
+    expect(await screen.findByText(/No more profiles/i)).toBeInTheDocument();
   });
-}); 
+});

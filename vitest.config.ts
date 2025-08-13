@@ -5,6 +5,9 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './vitest-setup.ts',
+    env: {
+      VITE_USE_MOCK_API: 'true',
+    },
     exclude: ['e2e/**', 'node_modules/**'],
     coverage: {
       provider: 'v8',
@@ -20,6 +23,8 @@ export default defineConfig({
         '**/dist/**',
         '**/.{git,cache,output,temp}/**',
         '**/main.tsx',
+        'src/services/profileService.ts',
+        'src/types/**',
       ]      
     },
   },

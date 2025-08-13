@@ -1,19 +1,7 @@
 {
+  "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2023",
-    "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Disable all strict checking */
+    "types": ["vitest/globals", "@testing-library/jest-dom"],
     "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
@@ -28,5 +16,5 @@
     "noUncheckedSideEffectImports": false,
     "noErrorTruncation": false
   },
-  "include": ["vite.config.ts"]
+  "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/**/*.spec.ts", "src/**/*.spec.tsx", "vitest-setup.ts"]
 }

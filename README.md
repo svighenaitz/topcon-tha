@@ -1,69 +1,68 @@
-# React + TypeScript + Vite
+## Tinder-like Prototype (Like/Dislike Only)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with mock API by default and supports switching to a real backend without code changes.
 
-Currently, two official plugins are available:
+### Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Install: `pnpm i` or `npm i`
+- Dev: `pnpm dev` or `npm run dev`
+- Build: `pnpm build` or `npm run build`
+- Test (100% coverage): `pnpm test:coverage` or `npm run test:coverage`
 
-## Expanding the ESLint configuration
+### Environment
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Configure via Vite env vars (all optional):
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- `VITE_USE_MOCK_API` (default `true`): when `true`, uses in-memory mock service
+- `VITE_API_BASE_URL`: base URL for backend, e.g. `https://api.example.com`
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+No code changes needed across environments. Provide env per stage.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### API Contract (REST)
+
+Base URL: `${VITE_API_BASE_URL}`
+
+1) GET `/profiles/next`
+- Returns 200 with a `Profile` JSON body when a profile is available
+- Returns 204 when there are no more profiles
+- Errors: 5xx or 4xx return JSON `{ message: string }`
+
+Response (200):
+```json
+{
+  "id": "string",
+  "name": "string",
+  "age": 30,
+  "bio": "string",
+  "photoUrl": "https://..."
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2) POST `/profiles/{id}/decide`
+- Body: `{ "decision": "like" | "dislike" }`
+- Returns 200 with `{ matched: boolean }`
+- Errors: 404 if profile not found; generic 4xx/5xx with `{ message }`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Request body:
+```json
+{ "decision": "like" }
 ```
+
+Response (200):
+```json
+{ "matched": true }
+```
+
+### UI Behavior
+- Uses MUI components
+- Shows current profile card with Like/Dislike buttons
+- On like, if `{ matched: true }`, displays a modal
+- When profiles run out, shows a friendly empty state with reload
+- Errors show MUI `Alert` with Retry
+
+### Tests
+- Unit tests using Vitest and Testing Library
+- 100% coverage required by CI command `test:coverage`
+
+### Notes
+- Mock data seeds 3 profiles and simulates matches when the other user liked you already (even ages)
