@@ -16,10 +16,10 @@ describe('App', () => {
 
     // Either opens match or goes to next profile. We can wait for either state change.
     await waitFor(() => {
-      // next card should exist or match modal should open
-      const maybeModal = screen.queryByText(/it's a match!/i);
+      // next card should exist or match overlay should show
+      const maybeOverlay = screen.queryByText(/you got a match!/i);
       const card = screen.queryByRole('img', { name: /photo/i });
-      expect(maybeModal ?? card).toBeTruthy();
+      expect(maybeOverlay ?? card).toBeTruthy();
     });
   });
 

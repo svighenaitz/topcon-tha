@@ -1,0 +1,3 @@
+# Project-Specific Cursor Rules
+- use bun for commands
+- when suggesting commands use "bun run" instead of "npm run"

@@ -8,8 +8,9 @@ export interface UseProfilesState {
   isLoading: boolean;
   error: string | null;
   isOutOfProfiles: boolean;
-  decide: (decision: LikeDecision) => Promise<DecideResponse>;
+  decide: (decision: LikeDecision, autoLoadNext?: boolean) => Promise<DecideResponse>;
   reload: () => Promise<void>;
+  loadNext: () => Promise<void>;
 }
 
 export function useProfiles(customService?: ProfileService): UseProfilesState {
@@ -46,10 +47,12 @@ export function useProfiles(customService?: ProfileService): UseProfilesState {
     }
   }, [service]);
 
-  const decide = useCallback(async (decision: LikeDecision): Promise<DecideResponse> => {
+  const decide = useCallback(async (decision: LikeDecision, autoLoadNext: boolean = true): Promise<DecideResponse> => {
     if (!current) throw new Error('No current profile');
     const res = await service.decide(current.id, decision);
-    await loadNext();
+    if (autoLoadNext) {
+      await loadNext();
+    }
     return res;
   }, [current, loadNext, service]);
 
@@ -62,6 +65,6 @@ export function useProfiles(customService?: ProfileService): UseProfilesState {
     void loadNext();
   }, [loadNext]);
 
-  return { current, isLoading, error, isOutOfProfiles, decide, reload };
+  return { current, isLoading, error, isOutOfProfiles, decide, reload, loadNext };
 }
 
