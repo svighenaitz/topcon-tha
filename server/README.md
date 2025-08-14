@@ -1,6 +1,6 @@
 # Topcon THA API Server
 
-A simple Express.js API server that provides mocked data for the Topcon THA application.
+A simple Express.js API server that provides sample data for the Topcon THA application.
 
 ## Features
 
@@ -104,9 +104,8 @@ Update your frontend environment to use this server:
 ```typescript
 // In your env.ts or similar
 export const API_BASE_URL = 'http://localhost:3001';
-export const USE_MOCK_API = false;
 ```
 
-## Mock Data
+## Sample Data
 
-The server includes 5 mock profiles with realistic data and WebP images from Picsum Photos. The profiles are served in sequence, and the queue advances after each decision is made.
+The server includes 5 sample profiles with realistic data and WebP images from Picsum Photos. The profiles are served in sequence, and the queue advances after each decision is made.

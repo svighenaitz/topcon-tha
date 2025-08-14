@@ -1,6 +1,6 @@
 ## Tinder-like Prototype (Like/Dislike Only)
 
-Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with mock API by default and supports switching to a real backend without code changes.
+Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with a real backend API.
 
 ### Run
 
@@ -11,12 +11,11 @@ Production-ready prototype using React + Vite + TypeScript + MUI. It implements 
 
 ### Environment
 
-Configure via Vite env vars (all optional):
+Configure via Vite env vars:
 
-- `VITE_USE_MOCK_API` (default `true`): when `true`, uses in-memory mock service
 - `VITE_API_BASE_URL`: base URL for backend, e.g. `https://api.example.com`
 
-No code changes needed across environments. Provide env per stage.
+**Note**: `VITE_API_BASE_URL` is required for the application to function.
 
 ### API Contract (REST)
 
@@ -65,4 +64,5 @@ Response (200):
 - 100% coverage required by CI command `test:coverage`
 
 ### Notes
-- Mock data seeds 3 profiles and simulates matches when the other user liked you already (even ages)
+- The application requires a running backend server to function
+- Ensure your backend implements the required API endpoints as specified in the API Contract section
