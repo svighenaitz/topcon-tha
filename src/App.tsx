@@ -4,9 +4,9 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import { useState, useEffect } from 'react';
 import ProfileCard from './components/ProfileCard/ProfileCard';
-import LoadingSpinner from './components/common/LoadingSpinner/LoadingSpinner';
 import ErrorDisplay from './components/ErrorDisplay/ErrorDisplay';
 import { useProfiles } from './hooks/useProfiles';
+import ProfileCardSkeleton from './components/ProfileCard/ProfileCardSkeleton';
 
 function App() {
   const { current, isLoading, isOutOfProfiles, error, decide, reload, loadNext } = useProfiles();
@@ -51,9 +51,11 @@ function App() {
     >
       <Stack spacing={3} alignItems="center" sx={{ width: '100%', maxWidth: '100%' }}>
         <Typography variant="h4" component="h1">Tinder-like</Typography>
-        {isLoading && <LoadingSpinner />}
-        {error && <ErrorDisplay message={error} onRetry={() => { void reload(); }} />}
-        {!isLoading && !error && current && (
+        {isLoading ? (
+          <ProfileCardSkeleton />
+        ) : error ? (
+          <ErrorDisplay message={error} onRetry={() => { void reload(); }} />
+        ) : current ? (
           <ProfileCard
             profile={current}
             onLike={() => { void handleDecision('like'); }}
@@ -61,14 +63,15 @@ function App() {
             isMatch={isMatch}
             onOkay={handleOkay}
           />
-        )}
-        {!isLoading && !error && isOutOfProfiles && (
+        ) : isOutOfProfiles ? (
           <Stack spacing={2} alignItems="center">
             <Typography>No more profiles. Check back later.</Typography>
             <Button variant="contained" onClick={() => { void reload(); }} aria-label="reload">
               Reload
             </Button>
           </Stack>
+        ) : (
+          <ProfileCardSkeleton />
         )}
       </Stack>
     </Container>

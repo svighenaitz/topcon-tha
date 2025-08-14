@@ -1,12 +1,8 @@
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import type { Profile } from '../../types';
+import ProfileCardContainer from './ProfileCardContainer';
 
 export interface ProfileCardProps {
   profile: Profile;
@@ -25,35 +21,43 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
     }
   };
 
+  const mediaContent = (
+    <img 
+      src={profile.photoUrl} 
+      alt={`${profile.name}'s`}
+      style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '8px' }}
+    />
+  );
+
+  const actionsContent = (
+    <>
+      <Button variant="outlined" color="inherit" onClick={onDislike} aria-label="dislike">
+        Dislike
+      </Button>
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={handleLikeClick} 
+        aria-label={isMatch ? 'okay' : 'like'}
+        sx={{ zIndex: 2 }}
+      >
+        {isMatch ? 'Okay' : 'Like'}
+      </Button>
+    </>
+  );
+
   return (
-    <Box sx={{ position: 'relative' }}>
-      <Card sx={{ maxWidth: 420 }} aria-label={`profile-${profile.id}`}>
-        <CardMedia component="img" height="520" width={420} image={profile.photoUrl} alt={`${profile.name}'s photo`} />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {profile.name}, {profile.age}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {profile.bio}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Stack direction="row" spacing={2} sx={{ width: '100%', justifyContent: 'space-between' }}>
-            <Button variant="outlined" color="inherit" onClick={onDislike} aria-label="dislike">
-              Dislike
-            </Button>
-            <Button 
-              variant="contained" 
-              color="primary" 
-              onClick={handleLikeClick} 
-              aria-label={isMatch ? 'okay' : 'like'}
-              sx={{ zIndex: 2 }}
-            >
-              {isMatch ? 'Okay' : 'Like'}
-            </Button>
-          </Stack>
-        </CardActions>
-      </Card>
+    <ProfileCardContainer
+      mediaContent={mediaContent}
+      actionsContent={actionsContent}
+      ariaLabel={`profile-${profile.id}`}
+    >
+      <Typography gutterBottom variant="h5" component="div">
+        {profile.name}, {profile.age}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        {profile.bio}
+      </Typography>
       
       {isMatch && (
         <Box
@@ -86,7 +90,7 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
           </Typography>
         </Box>
       )}
-    </Box>
+    </ProfileCardContainer>
   );
 }
 
