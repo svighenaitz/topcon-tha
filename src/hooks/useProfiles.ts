@@ -57,7 +57,7 @@ export function useProfiles(customService?: ProfileService): UseProfilesState {
   }, [current, loadNext, service]);
 
   const reload = useCallback(async () => {
-    service.reset();
+    await service.reset();
     await loadNext();
   }, [loadNext, service]);
 

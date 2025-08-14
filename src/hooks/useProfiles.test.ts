@@ -10,7 +10,7 @@ const mockService = (profiles: ({ id: string } & Record<string, any>)[]): Profil
   return {
     async fetchNextProfile() { return queue.shift() ?? null; },
     async decide() { return { matched: true }; },
-    reset() { /* no-op for test */ },
+    async reset() { /* no-op for test */ },
   };
 };
 
@@ -28,7 +28,7 @@ it('handles errors', async () => {
   const badService: ProfileService = {
     async fetchNextProfile() { throw new Error('boom'); },
     async decide() { return { matched: false }; },
-    reset() { /* no-op for test */ },
+    async reset() { /* no-op for test */ },
   };
   const { result } = renderHook(() => useProfiles(badService));
   await act(async () => {});

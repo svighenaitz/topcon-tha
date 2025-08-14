@@ -4,7 +4,7 @@ import type { DecideResponse, LikeDecision, Profile } from '../types';
 export interface ProfileService {
   fetchNextProfile(): Promise<Profile | null>;
   decide(profileId: string, decision: LikeDecision): Promise<DecideResponse>;
-  reset(): void;
+  reset(): Promise<void>;
 }
 
 export class HttpProfileService implements ProfileService {
@@ -24,8 +24,10 @@ export class HttpProfileService implements ProfileService {
     if (!res.ok) throw new Error(`Failed to decide: ${res.status}`);
     const data = (await res.json()) as DecideResponse; return data;
   }
-  // No-op for HTTP service; server controls state
-  reset(): void { /* intentionally empty */ }
+  async reset(): Promise<void> {
+    const res = await fetch(`${this.baseUrl}/profiles/reset`, { method: 'POST' });
+    if (!res.ok) throw new Error(`Failed to reset profiles: ${res.status}`);
+  }
 }
 
 export class MockProfileService implements ProfileService {
@@ -47,7 +49,7 @@ export class MockProfileService implements ProfileService {
     this.currentIndex = Math.min(this.currentIndex + 1, this.seed.length);
     return { matched };
   }
-  reset(): void {
+  async reset(): Promise<void> {
     this.currentIndex = 0;
   }
 }
