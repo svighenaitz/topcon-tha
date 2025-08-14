@@ -28,7 +28,7 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
   return (
     <Box sx={{ position: 'relative' }}>
       <Card sx={{ maxWidth: 420 }} aria-label={`profile-${profile.id}`}>
-        <CardMedia component="img" height="520" image={profile.photoUrl} alt={`${profile.name}'s photo`} />
+        <CardMedia component="img" height="520" width={420} image={profile.photoUrl} alt={`${profile.name}'s photo`} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {profile.name}, {profile.age}
