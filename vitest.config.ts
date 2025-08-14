@@ -5,15 +5,14 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './vitest-setup.ts',
-    env: {
-      VITE_USE_MOCK_API: 'true',
-    },
-    exclude: ['e2e/**', 'node_modules/**'],
+    exclude: ['e2e/**', 'node_modules/**', 'server/node_modules/**'],
     coverage: {
       provider: 'v8',
       reporter: ['text'],
       exclude: [
         'node_modules/**',
+        'server/node_modules/**',
+        'server/**',
         'e2e/**',
         '**/*.d.ts',
         '**/*.config.*',
