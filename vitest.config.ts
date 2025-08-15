@@ -24,6 +24,7 @@ export default defineConfig({
         '**/main.tsx',
         'src/services/profileService.ts',
         'src/types/**',
+        'src/theme/**',
       ]      
     },
   },
