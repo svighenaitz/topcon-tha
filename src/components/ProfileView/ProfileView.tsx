@@ -63,8 +63,8 @@ export default function ProfileView({
   return (
     <ProfileCard
       profile={current}
-      onLike={() => handleLike(current)}
-      onDislike={() => handleDislike(current)}
+      onLike={handleLike}
+      onDislike={handleDislike}
       isMatch={isMatch}
       onOkay={handleOkay}
     />
