@@ -32,7 +32,7 @@ describe('App', () => {
     render(<App />);
 
     // initial load
-    expect(await screen.findByRole('img', { name: /photo/i })).toBeInTheDocument();
+    expect(await screen.findByRole('img', { name: /'s$/ })).toBeInTheDocument();
 
     // like -> possibly opens modal
     const likeButton = screen.getByRole('button', { name: /^like$/i });

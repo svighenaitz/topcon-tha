@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import type { DecideResponse, LikeDecision, Profile } from '../types';
 
 export interface ProfileService {

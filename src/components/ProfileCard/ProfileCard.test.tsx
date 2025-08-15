@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { it, expect, vi, describe } from 'vitest';
@@ -12,7 +12,7 @@ describe('ProfileCard', () => {
     const onDislike = vi.fn();
     const onOkay = vi.fn();
     render(<ProfileCard profile={profile} onLike={onLike} onDislike={onDislike} onOkay={onOkay} />);
-    screen.getByRole('img', { name: /taylor's photo/i });
+    screen.getByRole('img', { name: /taylor's$/i });
     screen.getByRole('button', { name: /^like$/i }).click();
     screen.getByRole('button', { name: /^dislike$/i }).click();
     expect(onLike).toHaveBeenCalledTimes(1);

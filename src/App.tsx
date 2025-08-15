@@ -1,5 +1,4 @@
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useProfiles } from './hooks/useProfiles';
 import ProfileView from './components/ProfileView/ProfileView';
@@ -21,7 +20,6 @@ function App() {
       }}
     >
       <Stack spacing={3} alignItems="center" sx={{ width: '100%', maxWidth: '100%' }}>
-        <Typography variant="h4" component="h1">Tinder-like</Typography>
         <ProfileView
           current={current}
           isLoading={isLoading}
