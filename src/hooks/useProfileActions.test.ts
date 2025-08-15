@@ -1,18 +1,10 @@
 import { renderHook, act } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useProfileActions } from './useProfileActions';
-import type { Profile } from '../types';
 
 describe('useProfileActions', () => {
   const mockOnDecide = vi.fn();
   const mockOnLoadNext = vi.fn();
-  const mockProfile: Profile = {
-    id: '1',
-    name: 'John',
-    age: 25,
-    bio: 'Test bio',
-    photoUrl: 'https://example.com/photo.jpg'
-  };
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -34,7 +26,7 @@ describe('useProfileActions', () => {
     );
 
     await act(async () => {
-      await result.current.handleLike(mockProfile);
+      await result.current.handleLike();
     });
 
     expect(mockOnDecide).toHaveBeenCalledWith('like', false);
@@ -50,7 +42,7 @@ describe('useProfileActions', () => {
     );
 
     await act(async () => {
-      await result.current.handleLike(mockProfile);
+      await result.current.handleLike();
     });
 
     expect(mockOnDecide).toHaveBeenCalledWith('like', false);
@@ -64,7 +56,7 @@ describe('useProfileActions', () => {
     );
 
     await act(async () => {
-      await result.current.handleDislike(mockProfile);
+      await result.current.handleDislike();
     });
 
     expect(mockOnDecide).toHaveBeenCalledWith('dislike', false);
@@ -79,7 +71,7 @@ describe('useProfileActions', () => {
     // First set match to true
     await act(async () => {
       mockOnDecide.mockResolvedValue({ matched: true });
-      await result.current.handleLike(mockProfile);
+      await result.current.handleLike();
     });
 
     expect(result.current.isMatch).toBe(true);
@@ -113,7 +105,7 @@ describe('useProfileActions', () => {
     // Test like with match
     mockOnDecide.mockResolvedValueOnce({ matched: true });
     await act(async () => {
-      await result.current.handleLike(mockProfile);
+      await result.current.handleLike();
     });
     expect(result.current.isMatch).toBe(true);
 
@@ -125,7 +117,7 @@ describe('useProfileActions', () => {
 
     // Test dislike
     await act(async () => {
-      await result.current.handleDislike(mockProfile);
+      await result.current.handleDislike();
     });
     expect(result.current.isMatch).toBe(false);
   });
