@@ -17,7 +17,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "verify": "bun run check && bun run test:coverage --silent",
+    "verify": "bun run check && bun run test:coverage --silent"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
