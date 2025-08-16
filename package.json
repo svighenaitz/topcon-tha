@@ -7,8 +7,11 @@
     "check": "eslint . && tsc --noEmit",
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:prod": "NODE_ENV=production tsc -b && vite build",
+    "build:staging": "NODE_ENV=staging tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "preview:prod": "NODE_ENV=production vite preview",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
@@ -16,7 +19,13 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "postinstall": "playwright install",
-    "prepare": "husky"
+    "prepare": "husky",
+    "docker:build": "docker build -t topcon-tha .",
+    "docker:run": "docker run -p 3000:3000 topcon-tha",
+    "docker:compose:up": "docker-compose up -d",
+    "docker:compose:down": "docker-compose down",
+    "docker:compose:dev": "docker-compose --profile dev up -d",
+    "start:prod": "NODE_ENV=production bun run preview"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

@@ -1,68 +1,141 @@
-## Tinder-like Prototype (Like/Dislike Only)
+# Topcon THA - Production Ready
 
-Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with a real backend API.
+A React-based profile matching application with a Node.js backend API.
 
-### Run
+## 🚀 Quick Start
 
-- Install: `pnpm i` or `npm i`
-- Dev: `pnpm dev` or `npm run dev`
-- Build: `pnpm build` or `npm run build`
-- Test (100% coverage): `pnpm test:coverage` or `npm run test:coverage`
+### Development
+```bash
+# Install dependencies
+bun install
 
-### Environment
+# Start development server
+bun run dev
 
-Configure via Vite env vars:
-
-- `VITE_API_BASE_URL`: base URL for backend, e.g. `https://api.example.com`
-
-**Note**: `VITE_API_BASE_URL` is required for the application to function.
-
-### API Contract (REST)
-
-Base URL: `${VITE_API_BASE_URL}`
-
-1) GET `/profiles/next`
-- Returns 200 with a `Profile` JSON body when a profile is available
-- Returns 204 when there are no more profiles
-- Errors: 5xx or 4xx return JSON `{ message: string }`
-
-Response (200):
-```json
-{
-  "id": "string",
-  "name": "string",
-  "age": 30,
-  "bio": "string",
-  "photoUrl": "https://..."
-}
+# Start backend server (in another terminal)
+cd server && bun start
 ```
 
-2) POST `/profiles/{id}/decide`
-- Body: `{ "decision": "like" | "dislike" }`
-- Returns 200 with `{ matched: boolean }`
-- Errors: 404 if profile not found; generic 4xx/5xx with `{ message }`
+### Production Deployment
 
-Request body:
-```json
-{ "decision": "like" }
+#### Option 1: Docker Compose (Recommended)
+```bash
+# Production deployment
+bun run docker:compose:up
+
+# Development with Docker
+bun run docker:compose:dev
 ```
 
-Response (200):
-```json
-{ "matched": true }
+#### Option 2: Manual Deployment
+```bash
+# Build for production
+bun run build:prod
+
+# Start production server
+bun run start:prod
 ```
 
-### UI Behavior
-- Uses MUI components
-- Shows current profile card with Like/Dislike buttons
-- On like, if `{ matched: true }`, displays a modal
-- When profiles run out, shows a friendly empty state with reload
-- Errors show MUI `Alert` with Retry
+#### Option 3: Docker Only
+```bash
+# Build Docker image
+bun run docker:build
 
-### Tests
-- Unit tests using Vitest and Testing Library
-- 100% coverage required by CI command `test:coverage`
+# Run container
+bun run docker:run
+```
 
-### Notes
-- The application requires a running backend server to function
-- Ensure your backend implements the required API endpoints as specified in the API Contract section
+## 🌍 Environment Configuration
+
+Copy the example environment file and configure for your environment:
+
+```bash
+cp env.example .env
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `VITE_API_BASE_URL` | Backend API URL | `http://localhost:3001` |
+| `NODE_ENV` | Environment mode | `development` |
+| `PORT` | Backend server port | `3001` |
+
+### Environment-Specific Builds
+
+```bash
+# Development build
+bun run build
+
+# Staging build
+bun run build:staging
+
+# Production build
+bun run build:prod
+```
+
+## 🐳 Docker Deployment
+
+### Production
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# Or build individual images
+docker build -t topcon-tha .
+docker build -t topcon-tha-api ./server
+```
+
+### Development
+```bash
+# Run with development profile
+docker-compose --profile dev up -d
+```
+
+## 📋 Available Scripts
+
+- `bun run dev` - Start development server
+- `bun run build` - Build for development
+- `bun run build:prod` - Build for production
+- `bun run build:staging` - Build for staging
+- `bun run preview` - Preview production build
+- `bun run test` - Run tests
+- `bun run test:e2e` - Run end-to-end tests
+- `bun run docker:compose:up` - Start production with Docker Compose
+- `bun run docker:compose:dev` - Start development with Docker Compose
+
+## 🔧 Production Checklist
+
+- [x] Environment-specific configurations
+- [x] Docker containerization
+- [x] Health checks
+- [x] Production build optimizations
+- [x] Security considerations (non-root user)
+- [x] Environment variable validation
+- [x] Deployment scripts
+- [x] Source maps for debugging (staging)
+
+## 🏗️ Architecture
+
+- **Frontend**: React + Vite + TypeScript + Material-UI
+- **Backend**: Node.js + Express
+- **Containerization**: Docker + Docker Compose
+- **Testing**: Vitest + Playwright
+- **Package Manager**: Bun
+
+## 📦 Deployment to Different Environments
+
+### Staging
+```bash
+NODE_ENV=staging VITE_API_BASE_URL=https://staging-api.example.com bun run build:staging
+```
+
+### Production
+```bash
+NODE_ENV=production VITE_API_BASE_URL=https://api.example.com bun run build:prod
+```
+
+### Using Deployment Script
+```bash
+VITE_API_BASE_URL=https://api.example.com VERSION=1.0.0 ./scripts/deploy.sh
+```
