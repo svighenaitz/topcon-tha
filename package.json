@@ -4,19 +4,20 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "build": "tsc -b && vite build",
     "check": "eslint . && tsc --noEmit",
     "dev": "vite",
-    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "postinstall": "playwright install",
+    "prepare": "husky",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "postinstall": "playwright install",
-    "prepare": "husky"
+    "verify": "bun run check && bun run test:coverage --silent",
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
