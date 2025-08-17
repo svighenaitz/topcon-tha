@@ -27,7 +27,7 @@ describe('ProfileCard', () => {
     render(<ProfileCard profile={profile} onLike={onLike} onDislike={onDislike} onOkay={onOkay} isMatch={true} />);
     
     // Check that the overlay text is displayed
-    expect(screen.getByText('You got a match!')).toBeInTheDocument();
+    expect(screen.getByText('It\'s a match!')).toBeInTheDocument();
     
     // Check that the Like button now says "Okay"
     expect(screen.getByRole('button', { name: /^okay$/i })).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('ProfileCard', () => {
     render(<ProfileCard profile={profile} onLike={onLike} onDislike={onDislike} onOkay={onOkay} isMatch={false} />);
     
     // Check that the overlay text is not displayed
-    expect(screen.queryByText('You got a match!')).not.toBeInTheDocument();
+    expect(screen.queryByText('It\'s a match!')).not.toBeInTheDocument();
     
     // Check that the Like button says "Like"
     expect(screen.getByRole('button', { name: /^like$/i })).toBeInTheDocument();

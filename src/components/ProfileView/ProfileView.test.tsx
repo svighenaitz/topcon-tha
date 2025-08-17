@@ -105,8 +105,8 @@ describe('ProfileView', () => {
       />
     );
 
-    expect(screen.getByLabelText('profile-1')).toBeInTheDocument();
-    expect(screen.getByText('John, 25')).toBeInTheDocument();
-    expect(screen.getByText('Test bio')).toBeInTheDocument();
+    expect(screen.getByTestId('profile-card')).toBeInTheDocument();
+    expect(screen.getByTestId('profile-name')).toHaveTextContent('John, 25');
+    expect(screen.getByTestId('profile-bio')).toHaveTextContent('Test bio');
   });
 });
