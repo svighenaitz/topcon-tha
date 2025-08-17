@@ -1,80 +1,143 @@
-## Tinder-like Prototype (Like/Dislike Only)
+## Tinder-like Dating App Prototype
 
-Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with a real backend API.
+*TODO: Build a production-ready Tinder-like prototype with like/dislike functionality, real-time API integration, comprehensive testing, and modern UI/UX following React best practices*
 
-### 🚀 Production Ready
+[Giuliano De Ioanni](mailto:giuliano@example.com)
 
-This application is **production-ready** and can be deployed to any environment without code changes:
-- ✅ **Environment variable configuration** - Just set `VITE_API_BASE_URL` for your API
-- ✅ **No hardcoded URLs** - All API endpoints are configurable
-- ✅ **Standard build process** - Works with any deployment platform
+### [Click here to see the Video Review]([LINK_TO_LOOM_VIDEO])
 
-### 🏃‍♂️ Quick Start
+## Proposed Solution
 
-- Install: `bun install`
-- Dev: `bun run dev`
-- Build: `bun run build`
-- Test (100% coverage): `bun run test:coverage`
+*TODO: A modern React-based dating app prototype with robust architecture, comprehensive testing, and production-ready deployment capabilities*
 
-### Environment Configuration
+- **Frontend Architecture**: Built with React 19, TypeScript, and Vite for optimal development experience and build performance
+- **UI Framework**: Implemented Material-UI (MUI) components for consistent, accessible, and modern design patterns
+- **State Management**: Custom React hooks for profile management and user interactions with proper error handling
+- **API Integration**: RESTful service layer with TypeScript interfaces matching the backend contract
+- **Testing Strategy**: Comprehensive test suite with 100% coverage including unit tests (Vitest), integration tests, and end-to-end tests (Playwright)
+- **Error Handling**: Robust error boundaries, loading states, and user-friendly error messages
+- **Performance**: Optimized bundle size, lazy loading, and efficient re-renders
+- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
+- **CI/CD Ready**: Environment-based configuration, build optimization, and deployment-ready structure
 
-Configure via environment variables:
+### [Click here to see the Live Demo]([LINK_TO_THE_DEPLOYED_APP])
 
-- `VITE_API_BASE_URL`: base URL for backend, e.g. `https://api.example.com`
+## Screenshots
 
-**Note**: `VITE_API_BASE_URL` is required for the application to function.
+| Profile View | Match Notification |
+|--------------|-------------------|
+| ![Profile Card Interface](screenshots/screen-profile.png) | ![Match Notification Screen](screenshots/screen-match.png) |
 
-Copy `env.example` to `.env` and set your API URL:
+## Assumptions
+
+*TODO: Key assumptions made during development*
+
+- **Backend API**: Assumes a running backend server implementing the specified REST API contract
+- **Environment Configuration**: Requires `VITE_API_BASE_URL` environment variable for API communication
+- **Browser Support**: Modern browsers with ES2020+ support (Chrome, Firefox, Safari, Edge)
+- **Network Connectivity**: Stable internet connection for API calls and image loading
+- **User Experience**: Users understand like/dislike mechanics similar to Tinder
+- **Data Persistence**: Backend handles profile state and matching logic
+- **Image Loading**: Profile photos are accessible via HTTPS URLs
+- **Mobile Responsiveness**: Primary use case is mobile-first design
+
+## Libraries / Tools Used
+
+- **React 19** - Modern React with concurrent features
+- **TypeScript** - Type-safe development
+- **Vite** - Fast build tool and development server
+- **Material-UI (MUI)** - React component library
+- **Vitest** - Unit testing framework
+- **Playwright** - End-to-end testing
+- **Testing Library** - React component testing utilities
+- **ESLint** - Code linting and quality
+- **Husky** - Git hooks for code quality
+- **MSW** - API mocking for tests
+- **Bun** - Package manager and runtime
+
+## Setup
+
+### Frontend Application
+
+To install the dependencies run:
+
 ```bash
-cp env.example .env
+bun install
 ```
 
-### API Contract (REST)
+And to run the app:
 
-Base URL: `${VITE_API_BASE_URL}`
-
-1) GET `/profiles/next`
-- Returns 200 with a `Profile` JSON body when a profile is available
-- Returns 204 when there are no more profiles
-- Errors: 5xx or 4xx return JSON `{ message: string }`
-
-Response (200):
-```json
-{
-  "id": "string",
-  "name": "string",
-  "age": 30,
-  "bio": "string",
-  "photoUrl": "https://..."
-}
+```bash
+bun run dev
 ```
 
-2) POST `/profiles/{id}/decide`
-- Body: `{ "decision": "like" | "dislike" }`
-- Returns 200 with `{ matched: boolean }`
-- Errors: 404 if profile not found; generic 4xx/5xx with `{ message }`
+### Backend Server
 
-Request body:
-```json
-{ "decision": "like" }
+The project includes a local Express.js server to emulate the backend API. To run the server:
+
+1. Navigate to the server directory:
+   ```bash
+   cd server
+   ```
+
+2. Install server dependencies:
+   ```bash
+   bun install
+   ```
+
+3. Start the server:
+   ```bash
+   bun run start
+   ```
+
+The server will start on `http://localhost:3001` and provides the following endpoints:
+- `GET /profiles/next` - Get the next profile in the queue
+- `POST /profiles/:id/decide` - Make a decision (like/dislike) on a profile
+- `POST /profiles/reset` - Reset the profile queue
+- `GET /health` - Health check endpoint
+
+**Note**: Make sure to set `VITE_API_BASE_URL=http://localhost:3001` in your environment variables to connect the frontend to the local server.
+
+## Running the tests
+
+![Lighthouse Results](screenshots/lighthouse.png)
+
+You can run the unit tests using:
+
+```bash
+bun run test
 ```
 
-Response (200):
-```json
-{ "matched": true }
+For test coverage:
+
+```bash
+bun run test:coverage
 ```
 
-### UI Behavior
-- Uses MUI components
-- Shows current profile card with Like/Dislike buttons
-- On like, if `{ matched: true }`, displays a modal
-- When profiles run out, shows a friendly empty state with reload
-- Errors show MUI `Alert` with Retry
+For end-to-end tests:
 
-### Tests
-- Unit tests using Vitest and Testing Library
-- 100% coverage required by CI command `test:coverage`
+```bash
+bun run test:e2e
+```
 
-### Notes
-- The application requires a running backend server to function
-- Ensure your backend implements the required API endpoints as specified in the API Contract section
+### Test Screenshots
+
+The application includes comprehensive end-to-end testing with visual verification:
+
+| E2E Test Results | Unit Test Coverage |
+|------------------|-------------------|
+| ![E2E Test Results](screenshots/e2e.png) | ![Unit Test Coverage](screenshots/unit-coverage.png) |
+
+
+## Future Work
+
+1. **Enhanced Matching Algorithm**: Implement more sophisticated matching logic based on user preferences and compatibility scores
+2. **Real-time Features**: Add WebSocket support for real-time messaging and notifications
+3. **User Authentication**: Implement JWT-based authentication with user registration and login
+4. **Profile Management**: Allow users to create and edit their own profiles
+5. **Advanced Filters**: Add filtering by age, location, interests, and other criteria
+6. **Push Notifications**: Implement push notifications for matches and messages
+7. **Performance Optimization**: Implement virtual scrolling for large profile lists and image optimization
+8. **Analytics**: Add user behavior tracking and analytics dashboard
+9. **Internationalization**: Support for multiple languages and locales
+10. **Progressive Web App**: Convert to PWA with offline capabilities and app-like experience
