@@ -14,7 +14,7 @@ const mockProfiles = [
   { id: '2', name: 'Peter', age: 30, bio: 'Tech enthusiast and foodie', photoUrl: 'https://fastly.picsum.photos/id/2/600/800.jpg?hmac=l6HtoiTSJB0VpmX8JZ-btrlKEwBbmMoEIIvAUfTE2-U' },
   { id: '3', name: 'Lilla', age: 25, bio: 'Traveler and photographer', photoUrl: 'https://fastly.picsum.photos/id/3/600/800.jpg?hmac=GjdiWL3rsgSPUXByiagSgkVo2kdcT3muLeb5EQN8DLc' },
   { id: '4', name: 'Marco', age: 32, bio: 'Music producer and DJ', photoUrl: 'https://fastly.picsum.photos/id/4/600/800.jpg?hmac=wSAbUWXRJDtaQtC6BMYvnInelxuZqQIpEy2I2T8QPP0' },
-  { id: '5', name: 'Sofia', age: 27, bio: 'Yoga instructor and artist', photoUrl: 'https://fastly.picsum.photos/id/6/600/800.jpg?hmac=eTiriyQqUPSofK-59i7pEjukkmHfaHQNBh5dHDENvp0' }
+  { id: '5', name: 'Sofia', age: 27, bio: 'Yoga instructor and artist', photoUrl: 'https://fastly.picsum.photos/id/1/600/800.jpg?hmac=1UH7aH-yUEO8Tq9xKGOCLEyEfu_ZwlxuKm-E8DhKWK8' }
 ];
 
 let currentProfileIndex = 0;
