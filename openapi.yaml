@@ -1,0 +1,272 @@
+openapi: 3.0.3
+info:
+  title: Dating App API
+  description: |
+    REST API for the Dating App that manages user profiles and matching functionality.
+    
+    This API provides endpoints for:
+    - Fetching user profiles
+    - Making like/dislike decisions
+    - Managing profile queue
+    - Health monitoring
+    
+    ## Authentication
+    Currently, the API does not require authentication. All endpoints are publicly accessible.
+    
+    ## Base URL
+    ```
+    http://localhost:3001
+    ```
+  version: 1.0.0
+  contact:
+    name: API Support
+    email: support@datingapp.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3001
+    description: Development server
+  - url: https://api.datingapp.com
+    description: Production server
+
+tags:
+  - name: Profiles
+    description: Profile management operations
+  - name: Health
+    description: Health check and monitoring
+
+paths:
+  /profiles/next:
+    get:
+      tags:
+        - Profiles
+      summary: Get next profile
+      description: |
+        Retrieves the next available profile for the user to view.
+        
+        Returns the next profile in the queue. If no more profiles are available,
+        returns a 204 No Content status.
+      operationId: getNextProfile
+      responses:
+        '200':
+          description: Profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+              example:
+                id: "1"
+                name: "John"
+                age: 28
+                bio: "Coffee lover and hiker"
+                photoUrl: "https://fastly.picsum.photos/id/1/600/800.jpg?hmac=1UH7aH-yUEO8Tq9xKGOCLEyEfu_ZwlxuKm-E8DhKWK8"
+        '204':
+          description: No more profiles available
+          content: {}
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Failed to fetch next profile"
+
+  /profiles/{id}/decide:
+    post:
+      tags:
+        - Profiles
+      summary: Make decision on profile
+      description: |
+        Allows the user to like or dislike a profile and determines if there's a match.
+        
+        Submits a decision (like/dislike) for a specific profile and returns whether
+        it resulted in a match.
+      operationId: decideOnProfile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Profile ID
+          schema:
+            type: string
+          example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - decision
+              properties:
+                decision:
+                  $ref: '#/components/schemas/LikeDecision'
+            example:
+              decision: "like"
+      responses:
+        '200':
+          description: Decision processed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecideResponse'
+              example:
+                matched: true
+        '400':
+          description: Invalid decision value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Invalid decision. Must be 'like' or 'dislike'"
+        '404':
+          description: Profile not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Profile not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Failed to process decision"
+
+  /profiles/reset:
+    post:
+      tags:
+        - Profiles
+      summary: Reset profiles
+      description: |
+        Resets the profile queue to start from the beginning.
+        
+        Resets the internal profile index to 0, allowing users to view all profiles
+        again from the beginning.
+      operationId: resetProfiles
+      responses:
+        '200':
+          description: Profiles reset successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Profiles reset successfully"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: "Failed to reset profiles"
+
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health check
+      description: |
+        Provides a simple health check endpoint to verify the API is running.
+        
+        Returns the current status of the API server.
+      operationId: healthCheck
+      responses:
+        '200':
+          description: API is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "OK"
+                  timestamp:
+                    type: string
+                    format: date-time
+                    example: "2024-01-15T10:30:00.000Z"
+
+components:
+  schemas:
+    Profile:
+      type: object
+      required:
+        - id
+        - name
+        - age
+        - bio
+        - photoUrl
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the profile
+          example: "1"
+        name:
+          type: string
+          description: User's display name
+          example: "John"
+        age:
+          type: integer
+          minimum: 18
+          maximum: 100
+          description: User's age
+          example: 28
+        bio:
+          type: string
+          description: User's biography/description
+          example: "Coffee lover and hiker"
+        photoUrl:
+          type: string
+          format: uri
+          description: URL to the user's profile photo
+          example: "https://fastly.picsum.photos/id/1/600/800.jpg?hmac=1UH7aH-yUEO8Tq9xKGOCLEyEfu_ZwlxuKm-E8DhKWK8"
+      additionalProperties: false
+
+    LikeDecision:
+      type: string
+      enum:
+        - like
+        - dislike
+      description: Represents the possible decisions a user can make on a profile
+      example: "like"
+
+    DecideResponse:
+      type: object
+      required:
+        - matched
+      properties:
+        matched:
+          type: boolean
+          description: Whether the decision resulted in a match
+          example: true
+      additionalProperties: false
+
+    Error:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: Error message describing what went wrong
+          example: "Invalid decision. Must be 'like' or 'dislike'"
+      additionalProperties: false
+
+  securitySchemes: {}
+
+security: []
+# When authentication is implemented, add:
+# security:
+#   - bearerAuth: []
+#   - apiKey: []
