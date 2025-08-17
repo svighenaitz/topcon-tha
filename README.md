@@ -2,20 +2,32 @@
 
 Production-ready prototype using React + Vite + TypeScript + MUI. It implements a like/dislike flow with a real backend API.
 
-### Run
+### 🚀 Production Ready
 
-- Install: `pnpm i` or `npm i`
-- Dev: `pnpm dev` or `npm run dev`
-- Build: `pnpm build` or `npm run build`
-- Test (100% coverage): `pnpm test:coverage` or `npm run test:coverage`
+This application is **production-ready** and can be deployed to any environment without code changes:
+- ✅ **Environment variable configuration** - Just set `VITE_API_BASE_URL` for your API
+- ✅ **No hardcoded URLs** - All API endpoints are configurable
+- ✅ **Standard build process** - Works with any deployment platform
 
-### Environment
+### 🏃‍♂️ Quick Start
 
-Configure via Vite env vars:
+- Install: `bun install`
+- Dev: `bun run dev`
+- Build: `bun run build`
+- Test (100% coverage): `bun run test:coverage`
+
+### Environment Configuration
+
+Configure via environment variables:
 
 - `VITE_API_BASE_URL`: base URL for backend, e.g. `https://api.example.com`
 
 **Note**: `VITE_API_BASE_URL` is required for the application to function.
+
+Copy `env.example` to `.env` and set your API URL:
+```bash
+cp env.example .env
+```
 
 ### API Contract (REST)
 
