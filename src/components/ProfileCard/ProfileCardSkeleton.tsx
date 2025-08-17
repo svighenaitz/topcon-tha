@@ -27,6 +27,7 @@ export default function ProfileCardSkeleton() {
       mediaContent={mediaContent}
       actionsContent={actionsContent}
       ariaLabel="profile-skeleton"
+      data-testid="profile-card-skeleton"
     >
       <Skeleton variant="text" width="60%" height={32} sx={{ mb: 1 }} />
       <Skeleton variant="text" width="80%" height={20} />

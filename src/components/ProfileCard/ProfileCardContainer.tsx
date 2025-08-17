@@ -11,17 +11,19 @@ interface ProfileCardContainerProps {
   mediaContent: ReactNode;
   actionsContent: ReactNode;
   ariaLabel?: string;
+  'data-testid'?: string;
 }
 
 export default function ProfileCardContainer({ 
   children, 
   mediaContent, 
   actionsContent, 
-  ariaLabel = "profile-card" 
+  ariaLabel = "profile-card",
+  'data-testid': dataTestId
 }: ProfileCardContainerProps) {
   return (
     <Box sx={{ position: 'relative' }}>
-      <Card sx={{ maxWidth: 420 }} aria-label={ariaLabel}>
+      <Card sx={{ maxWidth: 420 }} aria-label={ariaLabel} data-testid={dataTestId}>
         <CardMedia
           component="div"
           sx={{ width: '420px', height: '520px' }}

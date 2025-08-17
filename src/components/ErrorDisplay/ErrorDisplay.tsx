@@ -9,11 +9,11 @@ export interface ErrorDisplayProps {
 
 export default function ErrorDisplay({ message, onRetry }: ErrorDisplayProps) {
   return (
-    <Stack spacing={2} sx={{ width: '100%' }}>
+    <Stack spacing={2} sx={{ width: '100%' }} data-testid="error-display">
       <Alert severity="error" role="alert">
         {message}
       </Alert>
-      <Button variant="outlined" onClick={onRetry} aria-label="retry">
+      <Button variant="outlined" onClick={onRetry} aria-label="retry" data-testid="retry-button">
         Retry
       </Button>
     </Stack>

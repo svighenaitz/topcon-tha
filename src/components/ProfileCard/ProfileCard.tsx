@@ -31,7 +31,7 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
 
   const actionsContent = (
     <>
-      <Button variant="outlined" color="inherit" onClick={onDislike} aria-label="dislike">
+      <Button variant="outlined" color="inherit" onClick={onDislike} aria-label="dislike" data-testid="dislike-button">
         Dislike
       </Button>
       <Button 
@@ -39,6 +39,7 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
         color="primary" 
         onClick={handleLikeClick} 
         aria-label={isMatch ? 'okay' : 'like'}
+        data-testid={isMatch ? 'okay-button' : 'like-button'}
         sx={{ zIndex: 2 }}
       >
         {isMatch ? 'Okay' : 'Like'}
@@ -51,16 +52,18 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
       mediaContent={mediaContent}
       actionsContent={actionsContent}
       ariaLabel={`profile-${profile.id}`}
+      data-testid="profile-card"
     >
-      <Typography gutterBottom variant="h5" component="div">
-        {profile.name}, {profile.age}
+      <Typography gutterBottom variant="h5" component="div" data-testid="profile-name">
+        {profile.name}, <span data-testid="profile-age">{profile.age}</span>
       </Typography>
-      <Typography variant="body2" color="text.secondary">
+      <Typography variant="body2" color="text.secondary" data-testid="profile-bio">
         {profile.bio}
       </Typography>
       
       {isMatch && (
         <Box
+          data-testid="match-notification"
           sx={{
             position: 'absolute',
             top: 0,
@@ -86,7 +89,7 @@ export default function ProfileCard({ profile, onLike, onDislike, isMatch = fals
               mb: 2
             }}
           >
-            You got a match!
+            It's a match!
           </Typography>
         </Box>
       )}
