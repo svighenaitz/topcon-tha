@@ -23,6 +23,7 @@ export default defineConfig({
         '**/.{git,cache,output,temp}/**',
         '**/main.tsx',
         'src/services/profileService.ts',
+        'src/config/env.ts',
         'src/types/**',
         'src/theme/**',
       ]      
