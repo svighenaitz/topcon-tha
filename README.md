@@ -126,5 +126,7 @@ The application includes comprehensive end-to-end testing with visual verificati
 
 ## Future Work
 
-1. **Placeholder**: [Placeholder]
+- **API resilience and validation**: Add a schema validator (e.g., Zod) and centralize error mapping for consistent UX.
+
+- **Data fetching and prefetching**: Integrate TanStack Query to cache the current profile, prefetch the next one, and de-duplicate network calls. Keep `useProfiles` as a thin adapter around query/mutation hooks.
 
