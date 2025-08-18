@@ -2,7 +2,7 @@
 
 *TODO: Build a production-ready Tinder-like prototype with like/dislike functionality, real-time API integration, comprehensive testing, and modern UI/UX following React best practices*
 
-[Giuliano De Ioanni](mailto:giuliano@example.com)
+[Giuliano De Ioanni](mailto:giulianodeioannigcp@gmail.com)
 
 ### [Click here to see the Video Review]([LINK_TO_LOOM_VIDEO])
 
@@ -14,10 +14,8 @@
 - **UI Framework**: Implemented Material-UI (MUI) components for consistent, accessible, and modern design patterns
 - **State Management**: Custom React hooks for profile management and user interactions with proper error handling
 - **API Integration**: RESTful service layer with TypeScript interfaces matching the backend contract
-- **Testing Strategy**: Comprehensive test suite with 100% coverage including unit tests (Vitest), integration tests, and end-to-end tests (Playwright)
+- **Testing Strategy**: Comprehensive test suite with 100% coverage including unit tests (Vitest), and end-to-end tests (Playwright)
 - **Error Handling**: Robust error boundaries, loading states, and user-friendly error messages
-- **Performance**: Optimized bundle size, lazy loading, and efficient re-renders
-- **Accessibility**: ARIA labels, keyboard navigation, and screen reader support
 - **CI/CD Ready**: Environment-based configuration, build optimization, and deployment-ready structure
 
 ### [Click here to see the Live Demo]([LINK_TO_THE_DEPLOYED_APP])
@@ -35,10 +33,8 @@
 - **Backend API**: Assumes a running backend server implementing the specified REST API contract
 - **Environment Configuration**: Requires `VITE_API_BASE_URL` environment variable for API communication
 - **Browser Support**: Modern browsers with ES2020+ support (Chrome, Firefox, Safari, Edge)
-- **Network Connectivity**: Stable internet connection for API calls and image loading
 - **User Experience**: Users understand like/dislike mechanics similar to Tinder
 - **Data Persistence**: Backend handles profile state and matching logic
-- **Image Loading**: Profile photos are accessible via HTTPS URLs
 - **Mobile Responsiveness**: Primary use case is mobile-first design
 
 ## Libraries / Tools Used
@@ -52,7 +48,6 @@
 - **Testing Library** - React component testing utilities
 - **ESLint** - Code linting and quality
 - **Husky** - Git hooks for code quality
-- **MSW** - API mocking for tests
 - **Bun** - Package manager and runtime
 
 ## Setup
@@ -131,13 +126,5 @@ The application includes comprehensive end-to-end testing with visual verificati
 
 ## Future Work
 
-1. **Enhanced Matching Algorithm**: Implement more sophisticated matching logic based on user preferences and compatibility scores
-2. **Real-time Features**: Add WebSocket support for real-time messaging and notifications
-3. **User Authentication**: Implement JWT-based authentication with user registration and login
-4. **Profile Management**: Allow users to create and edit their own profiles
-5. **Advanced Filters**: Add filtering by age, location, interests, and other criteria
-6. **Push Notifications**: Implement push notifications for matches and messages
-7. **Performance Optimization**: Implement virtual scrolling for large profile lists and image optimization
-8. **Analytics**: Add user behavior tracking and analytics dashboard
-9. **Internationalization**: Support for multiple languages and locales
-10. **Progressive Web App**: Convert to PWA with offline capabilities and app-like experience
+1. **Placeholder**: [Placeholder]
+
