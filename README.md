@@ -4,7 +4,7 @@
 
 [Giuliano De Ioanni](mailto:giulianodeioannigcp@gmail.com)
 
-### [Click here to see the Video Review]([https://www.loom.com/share/b1d48768e63840738544a5ab97cedcc6?sid=c37f6876-6405-4bae-b74e-70f604dab2f5])
+### [Click here to see the Video Review](https://www.loom.com/share/b1d48768e63840738544a5ab97cedcc6?sid=c37f6876-6405-4bae-b74e-70f604dab2f5)
 
 ## Proposed Solution
 
